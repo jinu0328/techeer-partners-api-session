@@ -20,7 +20,7 @@ public class TaskController {
     }
 
     @PostMapping
-    public ResponseEntity<Map<String, String>> createTask (@RequestBody TaskRequestDto dto) {
+    public ResponseEntity<Map<String, String>> createTask(@RequestBody TaskRequestDto dto) {
         taskService.createTask(dto);
         Map<String, String> response = new HashMap<>();
         response.put("message", "할 일이 성공적으로 생성되었습니다.");
@@ -28,7 +28,7 @@ public class TaskController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Task>> getTasks () {
+    public ResponseEntity<List<Task>> getTasks() {
         List<Task> tasks = taskService.getTasks();
         return ResponseEntity.status(200).body(tasks);
     }
@@ -40,7 +40,7 @@ public class TaskController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Map<String, String>> deleteTask (@PathVariable Long id) {
+    public ResponseEntity<Map<String, String>> deleteTask(@PathVariable Long id) {
         taskService.deleteTask(id);
         Map<String, String> response = new HashMap<>();
         response.put("message", "할 일이 성공적으로 삭제되었습니다.");
@@ -48,28 +48,29 @@ public class TaskController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Map<String, String>> updateTask (@PathVariable Long id, @RequestBody TaskRequestDto dto) {
+    public ResponseEntity<Map<String, String>> updateTask(@PathVariable Long id, @RequestBody TaskRequestDto dto) {
         taskService.updateTask(id, dto);
         Map<String, String> response = new HashMap<>();
         response.put("message", "할 일이 수정되었습니다.");
         return ResponseEntity.status(201).body(response);
     }
 
-    @PatchMapping("/{id}")
-    public ResponseEntity<Map<String, String>> updateTasks (@PathVariable Long id) {
+    @PatchMapping("/{id}/complete")
+    public ResponseEntity<Map<String, String>> completeTask(@PathVariable Long id) {
         taskService.completeTask(id);
         Map<String, String> response = new HashMap<>();
         response.put("message", "할 일이 완료되었습니다.");
         return ResponseEntity.status(201).body(response);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<List<Task>> getCompletedTasks () {
+    @GetMapping("/completed")
+    public ResponseEntity<List<Task>> getCompletedTasks() {
         List<Task> tasks = taskService.getTasksByIsDone(true);
         return ResponseEntity.status(200).body(tasks);
     }
-    @GetMapping("/{id}")
-    public ResponseEntity<List<Task>> getNotCompletedTasks () {
+
+    @GetMapping("/not-completed")
+    public ResponseEntity<List<Task>> getNotCompletedTasks() {
         List<Task> tasks = taskService.getTasksByIsDone(false);
         return ResponseEntity.status(200).body(tasks);
     }

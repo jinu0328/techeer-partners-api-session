@@ -27,4 +27,9 @@ public class TaskService {
     public Task getTaskById(Long id) {
         return taskRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 id가 존재하지 않습니다." + id));
     }
+
+    public void deleteTask(Long id) {
+        Task task = getTaskById(id);
+        taskRepository.delete(task);
+    }
 }

@@ -62,4 +62,15 @@ public class TaskController {
         response.put("message", "할 일이 완료되었습니다.");
         return ResponseEntity.status(201).body(response);
     }
+
+    @GetMapping
+    public ResponseEntity<List<Task>> getCompletedTasks () {
+        List<Task> tasks = taskService.getTasksByIsDone(true);
+        return ResponseEntity.status(200).body(tasks);
+    }
+    @GetMapping
+    public ResponseEntity<List<Task>> getNotCompletedTasks () {
+        List<Task> tasks = taskService.getTasksByIsDone(false);
+        return ResponseEntity.status(200).body(tasks);
+    }
 }

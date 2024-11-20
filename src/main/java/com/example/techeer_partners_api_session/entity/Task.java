@@ -24,4 +24,12 @@ public class Task {
     public TaskRequestDto toRequestDto() {
         return new TaskRequestDto(this.title, this.isDone);
     }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setIsDone(boolean done) {
+        isDone = done;
+    }
 }

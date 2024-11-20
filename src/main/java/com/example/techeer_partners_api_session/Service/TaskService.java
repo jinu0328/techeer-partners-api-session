@@ -36,4 +36,20 @@ public class TaskService {
                 .map(Task::toRequestDto)
                 .toList();
     }
+
+    public TaskRequestDto updateTask(Long id, TaskRequestDto dto) {
+        // 1. Task 찾기
+        Task task = taskRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 ID의 할 일이 존재하지 않습니다."));
+
+        // 2. Task 수정
+        if (dto.getTitle() != null) {
+            task.setTitle(dto.getTitle());
+        }
+        task.setIsDone(dto.isDone()); // true/false 업데이트
+
+        // 3. 저장 후 반환
+        taskRepository.save(task);
+        return task.toRequestDto();
+    }
 }

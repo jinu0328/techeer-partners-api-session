@@ -71,4 +71,16 @@ public class TaskController {
         // 201 상태 코드와 함께 DTO 반환
         return ResponseEntity.ok(response);
     }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Map<String, Object>> updateTask(@PathVariable Long id, @RequestBody TaskRequestDto dto) {
+        TaskRequestDto updatedTask = taskService.updateTask(id, dto);
+
+        Map<String, Object> response = new LinkedHashMap<>();
+        response.put("status", "success");
+        response.put("message", "할 일이 성공적으로 수정되었습니다.");
+        response.put("data", updatedTask);
+
+        return ResponseEntity.ok(response);
+    }
 }

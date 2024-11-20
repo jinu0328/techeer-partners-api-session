@@ -46,4 +46,8 @@ public class TaskService {
         task.setDone(true);
         taskRepository.save(task);
     }
+
+    public List<Task> getTasksByIsDone(boolean isDone) {
+        return taskRepository.findByIsDone(isDone);
+    }
 }

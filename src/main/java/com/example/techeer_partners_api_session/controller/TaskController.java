@@ -27,4 +27,16 @@ public class TaskController {
         return ResponseEntity.status(201).body(response);
     }
 
+    @GetMapping
+    public ResponseEntity<List<Task>> getTasks () {
+        List<Task> tasks = taskService.getTasks();
+        return ResponseEntity.status(200).body(tasks);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Task> getTaskById(@PathVariable Long id) {
+        Task task = taskService.getTaskById(id);
+        return ResponseEntity.status(200).body(task);
+    }
+
 }

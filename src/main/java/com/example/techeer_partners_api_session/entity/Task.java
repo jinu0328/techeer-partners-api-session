@@ -18,4 +18,12 @@ public class Task {
     public Task(String title) {
         this.title = title;
     }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDone(boolean isDone) {
+        this.isDone = isDone;
+    }
 }

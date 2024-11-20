@@ -40,4 +40,10 @@ public class TaskService {
         task.setDone(dto.isDone());
         taskRepository.save(task);
     }
+
+    public void completeTask(Long id) {
+        Task task = getTaskById(id);
+        task.setDone(true);
+        taskRepository.save(task);
+    }
 }

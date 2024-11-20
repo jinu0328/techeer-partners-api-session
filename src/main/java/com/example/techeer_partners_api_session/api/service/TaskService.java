@@ -1,11 +1,9 @@
 package com.example.techeer_partners_api_session.api.service;
 
 import com.example.techeer_partners_api_session.api.domain.dto.request.TaskUpdateRequest;
-import com.example.techeer_partners_api_session.api.domain.dto.response.TaskGetCompletedResponse;
 import com.example.techeer_partners_api_session.api.domain.entity.Task;
 import com.example.techeer_partners_api_session.api.repository.TaskRepository;
 import jakarta.persistence.EntityNotFoundException;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

@@ -39,7 +39,7 @@ public class TaskController {
         return ResponseEntity.status(200).body(task);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public ResponseEntity<Map<String, String>> deleteTask (@PathVariable Long id) {
         taskService.deleteTask(id);
         Map<String, String> response = new HashMap<>();
@@ -47,7 +47,7 @@ public class TaskController {
         return ResponseEntity.status(201).body(response);
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     public ResponseEntity<Map<String, String>> updateTask (@PathVariable Long id, @RequestBody TaskRequestDto dto) {
         taskService.updateTask(id, dto);
         Map<String, String> response = new HashMap<>();
@@ -55,7 +55,7 @@ public class TaskController {
         return ResponseEntity.status(201).body(response);
     }
 
-    @PatchMapping
+    @PatchMapping("/{id}")
     public ResponseEntity<Map<String, String>> updateTasks (@PathVariable Long id) {
         taskService.completeTask(id);
         Map<String, String> response = new HashMap<>();
@@ -63,12 +63,12 @@ public class TaskController {
         return ResponseEntity.status(201).body(response);
     }
 
-    @GetMapping
+    @GetMapping("/{id}")
     public ResponseEntity<List<Task>> getCompletedTasks () {
         List<Task> tasks = taskService.getTasksByIsDone(true);
         return ResponseEntity.status(200).body(tasks);
     }
-    @GetMapping
+    @GetMapping("/{id}")
     public ResponseEntity<List<Task>> getNotCompletedTasks () {
         List<Task> tasks = taskService.getTasksByIsDone(false);
         return ResponseEntity.status(200).body(tasks);

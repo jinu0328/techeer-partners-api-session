@@ -18,6 +18,7 @@ public class TaskService {
 
     public void createTask(TaskRequestDto dto) {
         Task task = new Task(dto.getTitle());
+        taskRepository.save(task);
     }
 
     public List<Task> getTasks() {
@@ -33,4 +34,10 @@ public class TaskService {
         taskRepository.delete(task);
     }
 
+    public void updateTask(Long id, TaskRequestDto dto) {
+        Task task = getTaskById(id);
+        task.setTitle(dto.getTitle());
+        task.setDone(dto.isDone());
+        taskRepository.save(task);
+    }
 }

@@ -55,4 +55,11 @@ public class TaskController {
         return ResponseEntity.status(201).body(response);
     }
 
+    @PatchMapping
+    public ResponseEntity<Map<String, String>> updateTasks (@PathVariable Long id) {
+        taskService.completeTask(id);
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "할 일이 완료되었습니다.");
+        return ResponseEntity.status(201).body(response);
+    }
 }

@@ -1,8 +1,10 @@
 package com.example.techeer_partners_api_session.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 
 @Entity
+@Getter
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

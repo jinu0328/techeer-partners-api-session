@@ -47,4 +47,12 @@ public class TaskController {
         return ResponseEntity.status(201).body(response);
     }
 
+    @PutMapping
+    public ResponseEntity<Map<String, String>> updateTask (@PathVariable Long id, @RequestBody TaskRequestDto dto) {
+        taskService.updateTask(id, dto);
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "할 일이 수정되었습니다.");
+        return ResponseEntity.status(201).body(response);
+    }
+
 }

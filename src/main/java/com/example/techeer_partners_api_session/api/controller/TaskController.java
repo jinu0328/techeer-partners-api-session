@@ -75,7 +75,7 @@ public class TaskController {
 
     @GetMapping("/completed")
     @Operation(summary = "완료된 할 일 조회", description = "할 일 중 완료된 것들을 조회하는 API")
-    public ResponseEntity<ResultResponse> getCompletedTasks(@PageableDefault(page = 0, size = 12, sort = "createdAt", direction = Direction.DESC) Pageable pageable) {
+    public ResponseEntity<ResultResponse> getCompletedTasks(@PageableDefault(page = 0, size = 8, sort = "createdAt", direction = Direction.DESC) Pageable pageable) {
         Page<TaskGetCompletedResponse> response = TaskGetCompletedResponse.listOf(taskService.getCompletedTasks(pageable));
         return ResponseEntity.status(HttpStatus.OK)
                 .body(ResultResponse.of(TASK_GET_COMPLETE_SUCCESS, response));
@@ -83,7 +83,7 @@ public class TaskController {
 
     @GetMapping("/incomplete")
     @Operation(summary = "미완료 할 일 조회", description = "아직 완료하지 못한 할 일들을 API")
-    public ResponseEntity<ResultResponse> getIncompleteTasks(@PageableDefault(page = 0, size = 12, sort = "createdAt", direction = Direction.DESC) Pageable pageable) {
+    public ResponseEntity<ResultResponse> getIncompleteTasks(@PageableDefault(page = 0, size = 8, sort = "createdAt", direction = Direction.DESC) Pageable pageable) {
         Page<TaskGetIncompleteResponse> response = TaskGetIncompleteResponse.listOf(taskService.getIncompleteTasks(pageable));
         return ResponseEntity.status(HttpStatus.OK)
                 .body(ResultResponse.of(TASK_GET_INCOMPLETE_SUCCESS, response));

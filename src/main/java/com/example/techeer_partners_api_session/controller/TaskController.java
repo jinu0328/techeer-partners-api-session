@@ -83,4 +83,12 @@ public class TaskController {
 
         return ResponseEntity.ok(response);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Map<String, String>> deleteTask(@PathVariable Long id) {
+        taskService.deleteTask(id);
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "할 일이 성공적으로 삭제되었습니다.");
+        return ResponseEntity.ok(response);
+    }
 }

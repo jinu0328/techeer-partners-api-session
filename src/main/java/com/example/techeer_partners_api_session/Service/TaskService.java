@@ -46,10 +46,16 @@ public class TaskService {
         if (dto.getTitle() != null) {
             task.setTitle(dto.getTitle());
         }
-        task.setIsDone(dto.isDone()); // true/false 업데이트
+        task.setIsDone(dto.getIsDone()); // true/false 업데이트
 
         // 3. 저장 후 반환
         taskRepository.save(task);
         return task.toRequestDto();
+    }
+
+    public void deleteTask(Long id) {
+        Task task = taskRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 ID의 할 일이 존재하지 않습니다."));
+        taskRepository.delete(task);
     }
 }

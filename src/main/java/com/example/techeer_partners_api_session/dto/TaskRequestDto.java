@@ -16,7 +16,7 @@ public class TaskRequestDto {
         return title;
     }
 
-    public boolean isDone() {
+    public boolean getIsDone() {
         return isDone;
     }
 }

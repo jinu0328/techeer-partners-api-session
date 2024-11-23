@@ -60,9 +60,7 @@ public class TaskController {
         return ResponseEntity.ok(response);
     }
 
-
-
-    @PatchMapping("/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Map<String, String>> updateTask(
             @PathVariable Long id,
             @RequestBody TaskRequestDto dto
@@ -82,7 +80,5 @@ public class TaskController {
         response.put("message", "할 일이 삭제되었습니다.");
         return ResponseEntity.ok(response);
     }
-
-
 
 }

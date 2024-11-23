@@ -4,7 +4,6 @@ public class TaskRequestDto {
     private final String title;
     private final boolean isDone;
 
-
     public TaskRequestDto(String title, boolean isDone) {
         this.title = title;
         this.isDone = isDone;

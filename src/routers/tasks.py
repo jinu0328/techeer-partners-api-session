@@ -19,10 +19,12 @@ def get_db():
         db.close()
 
 # 할 일 생성
+# 할 일 생성
 @router.post("", response_model=TaskResponse, status_code=201)
 def create_task(task: TaskCreate, db: Session = Depends(get_db)):
-    crud.create_task(db, task)
-    return {"status": "success", "message": "할 일이 생성되었습니다."}
+    new_task = crud.create_task(db, task)
+    return new_task
+
 
 # 전체 할 일 조회
 @router.get("", response_model=list[TaskResponse])

@@ -1,6 +1,2 @@
-# Docker Desktop 활용법
-https://melodic-walleye-2ab.notion.site/Docker-Desktop-1395051bdea58049bcb9f9ebb10631f6?pvs=4
-
-
-# 과제 요구사항
-https://melodic-walleye-2ab.notion.site/1395051bdea580f3855cf4d35803dd5f?pvs=4
+## Techeer Partners에서 백엔드 공부하는 김홍석이라고 합니다
+<img width="475" alt="image" src="https://github.com/user-attachments/assets/b665c3d1-fdc8-43d0-934d-626ea2f90ec7">

@@ -1,9 +1,39 @@
 version: '3.8'
 
 services:
-  spring:
+  application:
+    container_name: backend
+    restart: always
     build:
-      context: .
+      context: ./
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql_db:3306/${MYSQL_DATABASE}?useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${MYSQL_PASSWORD}
+      SPRINGDOC_SWAGGER_UI_PATH: /
+    depends_on:
+      - database
+    networks:
+      - team_h  # 네트워크 추가
+
+  database:
+    container_name: mysql_db
+    image: mysql:latest
+    restart: always
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql/conf.d:/etc/mysql/conf.d/my.cnf
+      - ./mysql/initdb.d:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+    networks:
+      - team_h  # 네트워크 추가
+
+networks:
+  team_h:  # 네트워크 정의
+    driver: bridge  # 기본 브리지 네트워크 사용

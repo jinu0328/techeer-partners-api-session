@@ -1,21 +1,20 @@
-FROM openjdk:21-jdk-slim
+FROM bellsoft/liberica-openjdk-alpine:17
+# 다른 JDK 옵션:
+# FROM openjdk:8-jdk-alpine
+# FROM openjdk:11-jdk-alpine
 
-RUN apt-get update && apt-get install -y dos2unix
+CMD ["./gradlew", "clean", "build"]
+# 또는 Maven
+# CMD ["./mvnw", "clean", "package"]
 
-WORKDIR /app
+VOLUME /tmp
 
-COPY gradlew ./
-COPY gradle gradle
-COPY build.gradle ./
-COPY settings.gradle ./
+ARG JAR_FILE=build/libs/*.jar
+# Maven을 사용하는 경우
+# ARG JAR_FILE_PATH=target/*.jar
 
-RUN dos2unix gradlew
-
-COPY src src
-
-RUN ./gradlew build --no-daemon
+COPY ${JAR_FILE} app.jar
 
 EXPOSE 8080
 
-# 만약 루트 디렉토리 이름이 다르다면 "build/libs/(디렉토리이름)-0.0.1-SNAPSHOT.jar" 으로 바꿔주기!
-ENTRYPOINT ["java", "-jar", "build/libs/techeer-partners-api-session-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar", "/app.jar"]

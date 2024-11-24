@@ -1,4 +1,4 @@
-package com.example.techeer_partners_api_session.config;
+package com.example.techeer_partners_api_session.global.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

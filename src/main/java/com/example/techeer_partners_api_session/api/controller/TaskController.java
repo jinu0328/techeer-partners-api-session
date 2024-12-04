@@ -41,7 +41,7 @@ public class TaskController {
 
     @PostMapping
     @Operation(summary = "할 일 생성", description = "할 일을 생성하는 API")
-    public ResponseEntity<ResultResponse> createTask(@RequestBody TaskCreateRequest dto) {
+    public ResponseEntity<ResultResponse<TaskCreateResponse>> createTask(@RequestBody TaskCreateRequest dto) {
         Task task = dto.toEntity();
         TaskCreateResponse response = TaskCreateResponse.from(taskService.createTask(task));
         return ResponseEntity.status(HttpStatus.CREATED)
@@ -50,7 +50,7 @@ public class TaskController {
 
     @PutMapping("/{taskId}")
     @Operation(summary = "할 일 수정", description = "할 일의 제목 혹은 완료여부를 수정하는 API")
-    public ResponseEntity<ResultResponse> updateTask(@PathVariable("taskId") Long taskId, @RequestBody TaskUpdateRequest dto) {
+    public ResponseEntity<ResultResponse<TaskUpdateResponse>> updateTask(@PathVariable("taskId") Long taskId, @RequestBody TaskUpdateRequest dto) {
         TaskUpdateResponse response = TaskUpdateResponse.from(taskService.modifyTask(taskId, dto));
         return ResponseEntity.status(HttpStatus.OK)
                 .body(ResultResponse.of(TASK_UPDATE_SUCCESS, response));
@@ -58,15 +58,15 @@ public class TaskController {
 
     @DeleteMapping("/{taskId}")
     @Operation(summary = "할 일 삭제", description = "할 일을 삭제하는 API")
-    public ResponseEntity<ResultResponse> deleteTask(@PathVariable("taskId") Long taskId) {
+    public ResponseEntity<ResultResponse<Void>> deleteTask(@PathVariable("taskId") Long taskId) {
         taskService.deleteTask(taskId);
         return ResponseEntity.status(HttpStatus.OK)
-                .body(ResultResponse.of(TASK_DELETE_SUCCESS));
+                .body(ResultResponse.of(TASK_DELETE_SUCCESS,null));
     }
 
     @GetMapping
     @Operation(summary = "할 일 조회", description = "전체 할 일(완료, 미완료)을 조회하는 API")
-    public ResponseEntity<ResultResponse> getAllTasks(@PageableDefault(page = 0, size = 12, sort = "createdAt", direction = Direction.DESC) Pageable pageable) {
+    public ResponseEntity<ResultResponse<Page<TaskGetResponse>>> getAllTasks(@PageableDefault(page = 0, size = 12, sort = "createdAt", direction = Direction.DESC) Pageable pageable) {
         Page<TaskGetResponse> response = TaskGetResponse.listOf(taskService.getAllTasks(pageable));
         return ResponseEntity.status(HttpStatus.OK)
                 .body(ResultResponse.of(TASK_GET_SUCCESS, response));
@@ -75,7 +75,7 @@ public class TaskController {
 
     @GetMapping("/completed")
     @Operation(summary = "완료된 할 일 조회", description = "할 일 중 완료된 것들을 조회하는 API")
-    public ResponseEntity<ResultResponse> getCompletedTasks(@PageableDefault(page = 0, size = 8, sort = "createdAt", direction = Direction.DESC) Pageable pageable) {
+    public ResponseEntity<ResultResponse<Page<TaskGetCompletedResponse>>> getCompletedTasks(@PageableDefault(page = 0, size = 8, sort = "createdAt", direction = Direction.DESC) Pageable pageable) {
         Page<TaskGetCompletedResponse> response = TaskGetCompletedResponse.listOf(taskService.getCompletedTasks(pageable));
         return ResponseEntity.status(HttpStatus.OK)
                 .body(ResultResponse.of(TASK_GET_COMPLETE_SUCCESS, response));
@@ -83,7 +83,7 @@ public class TaskController {
 
     @GetMapping("/incomplete")
     @Operation(summary = "미완료 할 일 조회", description = "아직 완료하지 못한 할 일들을 API")
-    public ResponseEntity<ResultResponse> getIncompleteTasks(@PageableDefault(page = 0, size = 8, sort = "createdAt", direction = Direction.DESC) Pageable pageable) {
+    public ResponseEntity<ResultResponse<Page<TaskGetIncompleteResponse>>> getIncompleteTasks(@PageableDefault(page = 0, size = 8, sort = "createdAt", direction = Direction.DESC) Pageable pageable) {
         Page<TaskGetIncompleteResponse> response = TaskGetIncompleteResponse.listOf(taskService.getIncompleteTasks(pageable));
         return ResponseEntity.status(HttpStatus.OK)
                 .body(ResultResponse.of(TASK_GET_INCOMPLETE_SUCCESS, response));
